@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Lelo - Rent Services</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #fff;
+            padding: 1.2rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            animation: slideDown 0.5s ease;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #ff6b6b;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            color: #ff6b6b;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b6b;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        main {
+            padding-top: 80px; /* Adjust based on header height */
+        }
+
+        .rent-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background-color: #f0f4f8;
+        }
+
+        .rent-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .rent-steps {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .rent-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            width: 250px;
+        }
+
+        .rent-step i {
+            font-size: 3rem;
+            color: #ff6b6b;
+            border: 2px solid #ff6b6b;
+            border-radius: 50%;
+            padding: 0.5rem;
+        }
+
+        .rent-step h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .rent-step p {
+            color: #555;
+            text-align: center;
+        }
+
+        .contact-owner {
+            margin-top: 3rem;
+            padding: 1rem 2rem;
+            background-color: #ff6b6b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-owner:hover {
+            background-color: #ff4757;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            margin-top: 5rem;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .rent-steps {
+                gap: 2rem;
+            }
+
+            .rent-step {
+                width: 200px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+
+            .rent-section h2 {
+                font-size: 2rem;
+            }
+
+            .rent-steps {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .rent-step {
+                width: 100%;
+            }
+        }
+        <!-- Add this CSS -->
+<style>
+    /* Step Animation */
+    .rent-step {
+        transition: all 0.4s ease;
+        transform-style: preserve-3d;
+    }
+    
+    .rent-step:hover {
+        transform: translateY(-10px) rotateX(5deg);
+    }
+    
+    /* Button Glow Effect */
+    .contact-owner {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .contact-owner::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(
+            to bottom right,
+            rgba(255,255,255,0) 45%,
+            rgba(255,255,255,0.8) 50%,
+            rgba(255,255,255,0) 55%
+        );
+        transform: rotate(30deg);
+        opacity: 0;
+    }
+    
+    .contact-owner:hover::after {
+        animation: shine 1.5s ease;
+    }
+    
+    @keyframes shine {
+        0% { transform: rotate(30deg) translate(-60%, -60%); opacity: 0; }
+        20% { opacity: 1; }
+        100% { transform: rotate(30deg) translate(60%, 60%); opacity: 0; }
+    }
+
+    .btn-login {
+        background: #ff6b6b;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+    }
+</style>
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Room<span>Lelo</span></div>
+        <nav>
+            <ul>
+                <li><a href="main.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="rooms.html"><span class="material-icons">bed</span> Rooms</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">phone</span> Contact</a></li>
+                <li><a href="rent.html"><span class="material-icons">card_travel</span> Rent Services</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="rent-section">
+            <h2>Looking to Rent Out Your Room?</h2>
+            <p>List your room on RoomLelo and find the perfect tenant!</p>
+            <div class="rent-steps">
+                <div class="rent-step">
+                    <i class="material-icons">search</i>
+                    <h3>1. Create a Listing</h3>
+                    <p>Provide details about your room, amenities, and location.</p>
+                </div>
+                <div class="rent-step">
+                    <i class="material-icons">perm_identity</i>
+                    <h3>2. Connect with Students</h3>
+                    <p>Reach out to potential tenants and schedule viewings.</p>
+                </div>
+                <div class="rent-step">
+                    <i class="material-icons">home</i>
+                    <h3>3. Find Your Tenant</h3>
+                    <p>Finalize the agreement and welcome your new tenant.</p>
+                </div>
+            </div>
+            <button class="contact-owner">Contact Us to List Your Room</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Room Lelo. All rights reserved.</p>
+    </footer>
+</body>
+</html>

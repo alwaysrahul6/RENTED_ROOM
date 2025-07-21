@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Rooms - Room Lelo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background: #ffffff;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2a2a2a;
+        }
+
+        .logo span {
+            color: #ff6b6b;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #444;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: #ff6b6b;
+        }
+
+        .advanced-search {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+            padding: 2rem 5%;
+            margin: 2rem 5%;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .search-filters {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 5px;
+            background: #eee;
+            border-radius: 5px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: #ff6b6b;
+            border-radius: 50%;
+            cursor: pointer;
+            border: none;
+        }
+
+        input[type="range"]:focus::-webkit-slider-thumb {
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.3);
+        }
+
+        input[type="range"]:focus::-moz-range-thumb {
+            box-shadow: 0 0 0 3px rgba(255,107,107,0.3);
+        }
+
+        .range-values {
+            display: flex;
+            justify-content: space-between;
+            color: #555;
+            font-size: 0.9rem;
+        }
+
+        select {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            width: 100%;
+            font-size: 1rem;
+        }
+
+        select:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 5px rgba(255,107,107,0.2);
+        }
+
+        .amenities-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .amenities-checkboxes label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #333;
+            font-size: 1rem;
+        }
+
+        .amenities-checkboxes input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            accent-color: #ff6b6b;
+        }
+
+        .room-listings {
+            padding: 2rem 5%;
+        }
+
+        .room-listings h3 {
+            font-size: 2rem;
+            color: #2a2a2a;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+
+        .room-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-bottom: 3px solid #ff6b6b;
+            transition: height 0.3s ease;
+        }
+
+        .room-card:hover img{
+            height: 230px;
+        }
+
+        .room-info {
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .room-info h4 {
+            color: #2a2a2a;
+            margin-bottom: 0.5rem;
+            font-size: 1.4rem;
+        }
+
+        .price {
+            color: #ff6b6b;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .amenities span {
+            padding: 0.3rem 0.5rem;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        .room-ai-score {
+            position: absolute;
+            top: -25px;
+            right: 15px;
+            background: #4CAF50;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(76,175,80,0.3);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #ff6b6b;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            font-size: 1.1rem;
+            border: none;
+        }
+
+        .btn:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 12px rgba(255,82,82,0.2);
+        }
+
+        @media (max-width: 768px) {
+            .search-filters {
+                grid-template-columns: 1fr;
+            }
+
+            nav ul {
+                gap: 1rem;
+            }
+        }
+        @media (max-width: 480px){
+            header{
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            nav ul{
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .logo{
+                font-size: 1.5rem;
+            }
+            .advanced-search{
+                margin: 2rem 2%;
+                padding: 2rem 5%;
+            }
+            .room-listings h3{
+                font-size: 1.5rem;
+            }
+        }
+         /* Enhanced Filter Section */
+    .advanced-search {
+        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+        border: 1px solid rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+    }
+    
+    .advanced-search:hover {
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        transform: translateY(-3px);
+    }
+    
+    /* Range Slider Enhancement */
+    input[type="range"] {
+        height: 8px;
+        background: linear-gradient(to right, #ff6b6b 0%, #ff6b6b var(--value), #eee var(--value), #eee 100%);
+    }
+    
+    /* Checkbox Animation */
+    .amenities-checkboxes input[type="checkbox"] {
+        transition: all 0.3s ease;
+    }
+    
+    .amenities-checkboxes input[type="checkbox"]:checked {
+        transform: scale(1.1);
+    }
+    
+    /* Room Card Enhancements */
+    .room-card {
+        perspective: 1000px;
+    }
+    
+    .room-card:hover .room-info {
+        transform: translateZ(20px);
+    }
+    
+    .room-info {
+        transition: transform 0.4s ease;
+    }
+
+    .btn-login {
+        background: #ff6b6b;
+        color: white;
+        padding: 0.5rem 1.5rem;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-login:hover {
+        background: #ff5252;
+        transform: translateY(-2px);
+    }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Room<span>Lelo</span></div>
+        <nav>
+            <ul>
+                <li><a href="main.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="rooms.html"><span class="material-icons">bed</span> Rooms</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">phone</span> Contact</a></li>
+                 <li><a href="rent.html"><span class="material-icons">card_travel</span> Rent Services</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="advanced-search">
+            <h2>Find Your Ideal Room</h2>
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label>Price Range:</label>
+                    <input type="range" min="0" max="2000" value="1000">
+                    <div class="range-values">
+                        <span>₹0</span>
+                        <span>₹2000</span>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Room Type:</label>
+                    <select>
+                        <option>Any</option>
+                        <option>Single</option>
+                        <option>Shared</option>
+                        <option>Apartment</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Amenities:</label>
+                    <div class="amenities-checkboxes">
+                        <label><input type="checkbox"> WiFi</label>
+                        <label><input type="checkbox"> Laundry</label>
+                        <label><input type="checkbox"> Kitchen</label>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="room-listings">
+            <h3>Available Rooms</h3>
+            <div class="room-grid">
+                <article class="room-card premium">
+                    <img src="https://images.unsplash.com/photo-1594726233474-613b5c5747e2?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Premium Suite">
+                    <div class="room-info">
+                        <h4>Luxury Studio Apartment</h4>
+                        <p class="price">₹1500/month</p>
+                        <div class="amenities">
+                            <span>🏋️ Gym</span>
+                            <span>🍳 Kitchen</span>
+                            <span>🧺 Laundry</span>
+                        </div>
+                        <div class="room-ai-score high">92</div>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </article>
+                <article class="room-card">
+                    <img src="https://images.unsplash.com/photo-1588857430532-a709e9c39548?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Deluxe Room">
+                    <div class="room-info">
+                        <h4>Deluxe Single Room</h4>
+                        <p class="price">₹1000/month</p>
+                        <div class="amenities">
+                            <span>📶 WiFi</span>
+                            <span>🚿 En-suite Bath</span>
+                        </div>
+                        <div class="room-ai-score medium">85</div>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </article>
+                <article class="room-card">
+                    <img src="https://images.unsplash.com/photo-1582719573274-b4401c11a59c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shared Apartment">
+                    <div class="room-info">
+                        <h4>Shared Apartment</h4>
+                        <p class="price">₹800/month</p>
+                        <div class="amenities">
+                            <span>🧑‍🤝‍🧑 Shared Room</span>
+                            <span>🍳 Kitchen</span>
+                        </div>
+                        <div class="room-ai-score low">78</div>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </article>
+                <article class="room-card">
+                    <img src="https://images.unsplash.com/photo-1560185893-a55cbc649c7a?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Standard Room">
+                    <div class="room-info">
+                        <h4>Standard Single Room</h4>
+                        <p class="price">₹700/month</p>
+                        <div class="amenities">
+                            <span>📶 WiFi</span>
+                        </div>
+                        <div class="room-ai-score low">72</div>
+                        <a href="#" class="btn">Book Now</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2023 Room Lelo. All rights reserved.</p>
+    </footer>
+</body>
+</html>

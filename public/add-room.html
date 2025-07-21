@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Room - Room Lelo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logo span {
+            color: #ff6b6b;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ff6b6b;
+        }
+
+        .add-room-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: #ff6b6b;
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.1);
+        }
+
+        .btn-submit {
+            background: #ff6b6b;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+        .image-upload {
+            border: 2px dashed #e2e8f0;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .image-upload:hover {
+            border-color: #ff6b6b;
+        }
+
+        .image-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .preview-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">Room<span>Lelo</span></div>
+            <div class="nav-links">
+                <a href="/">Home</a>
+                <a href="/rooms">Browse Rooms</a>
+                <a href="/owner-dashboard">Dashboard</a>
+            </div>
+        </div>
+
+        <div class="add-room-card">
+            <h2 style="margin-bottom: 2rem;">Add New Room</h2>
+            <form id="addRoomForm">
+                <div class="form-group">
+                    <label class="form-label">Room Title</label>
+                    <input type="text" class="form-control" name="title" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Location</label>
+                    <input type="text" class="form-control" name="location" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Price (per month)</label>
+                    <input type="number" class="form-control" name="price" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Room Type</label>
+                    <select class="form-control" name="type" required>
+                        <option value="">Select Type</option>
+                        <option value="single">Single Room</option>
+                        <option value="double">Double Room</option>
+                        <option value="shared">Shared Room</option>
+                        <option value="apartment">Apartment</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" name="description" rows="4" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Amenities (comma separated)</label>
+                    <input type="text" class="form-control" name="amenities" placeholder="e.g., WiFi, AC, Parking">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Room Images</label>
+                    <div class="image-upload" id="imageUpload">
+                        <i class="material-icons" style="font-size: 3rem; color: #666;">cloud_upload</i>
+                        <p>Click to upload images</p>
+                    </div>
+                    <div class="image-preview" id="imagePreview"></div>
+                    <input type="file" id="imageInput" multiple accept="image/*" style="display: none;">
+                </div>
+
+                <button type="submit" class="btn-submit">Add Room</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Image upload handling
+        const imageUpload = document.getElementById('imageUpload');
+        const imageInput = document.getElementById('imageInput');
+        const imagePreview = document.getElementById('imagePreview');
+
+        imageUpload.addEventListener('click', () => {
+            imageInput.click();
+        });
+
+        imageInput.addEventListener('change', (e) => {
+            imagePreview.innerHTML = '';
+            Array.from(e.target.files).forEach(file => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.className = 'preview-image';
+                    imagePreview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
+        // Form submission
+        document.getElementById('addRoomForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = new FormData();
+            const roomData = {
+                title: e.target.title.value,
+                location: e.target.location.value,
+                price: e.target.price.value,
+                type: e.target.type.value,
+                description: e.target.description.value,
+                amenities: e.target.amenities.value.split(',').map(item => item.trim())
+            };
+
+            formData.append('roomData', JSON.stringify(roomData));
+            
+            // Add images to formData
+            Array.from(imageInput.files).forEach((file, index) => {
+                formData.append('images', file);
+            });
+
+            try {
+                const response = await fetch('/api/rooms', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    alert('Room added successfully!');
+                    window.location.href = '/owner-dashboard';
+                } else {
+                    const error = await response.json();
+                    alert(error.message || 'Failed to add room');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred while adding the room');
+            }
+        });
+    </script>
+</body>
+</html> 

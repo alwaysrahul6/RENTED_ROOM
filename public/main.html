@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Lelo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: #f7f9fc;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.2rem 5%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            animation: slideDown 0.5s ease;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #2c3e50, #3498db);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .logo span {
+            color: #ff6b6b;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        nav a:hover {
+            color: #ff6b6b;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ff6b6b;
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+            padding: 10rem 5% 6rem;
+            text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: calc(100vh - 80px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .hero::after {
+            content: "";
+            position: absolute;
+            bottom: -80px;
+            left: -80px;
+            width: 400px;
+            height: 400px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 50%;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            background: rgba(255,255,255,0.15);
+            padding: 2.5rem;
+            border-radius: 20px;
+            backdrop-filter: blur(12px);
+            animation: fadeInUp 1s ease 0.2s backwards;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        input, select {
+            padding: 1.2rem;
+            border: none;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.9);
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            box-shadow: 0 0 20px rgba(255,255,255,0.4);
+            transform: translateY(-2px);
+        }
+
+        button[type="submit"] {
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            color: white;
+            border: none;
+            padding: 1.2rem 2.5rem;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            grid-column: 1/-1;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        button[type="submit"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255,107,107,0.5);
+        }
+
+        button[type="submit"]::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: 0.5s;
+        }
+
+        button[type="submit"]:hover::after {
+            left: 100%;
+        }
+
+        .featured-rooms {
+            padding: 4rem 2rem;
+            background: #f7f9fc;
+        }
+
+        .featured-rooms h2 {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .room-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+
+        .room-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .room-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .room-details {
+            padding: 1.5rem;
+        }
+
+        .room-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .room-location {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+
+        .room-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #ff6b6b;
+        }
+
+        .room-amenities {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .amenity-tag {
+            background: #e2e8f0;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #2c3e50;
+        }
+
+        .testimonials {
+            padding: 5rem 5%;
+            background: #f7fafc;
+        }
+
+        .testimonials h2 {
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #2c3e50;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+
+        blockquote {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            position: relative;
+            animation: fadeIn 1s ease;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        blockquote:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(0,0,0,0.12);
+        }
+
+        blockquote::before {
+            content: "“";
+            font-size: 5rem;
+            color: #ff6b6b;
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            opacity: 0.3;
+            line-height: 1;
+        }
+
+        cite {
+            display: block;
+            margin-top: 1.5rem;
+            color: #777;
+            font-style: normal;
+            font-weight: 500;
+            text-align: right;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes fadeInUp {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            nav ul {
+                gap: 1.5rem;
+            }
+
+            .search-form {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            button[type="submit"]{
+                padding: 1rem;
+            }
+        }
+        @media (max-width: 480px){
+            header{
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+                text-align: center;
+            }
+            nav ul{
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .logo{
+                font-size: 1.5rem;
+            }
+             .hero {
+                padding: 6rem 5% 4rem;
+             }
+             .hero h1{
+                font-size: 2rem;
+             }
+             .featured-rooms h2{
+                font-size: 1.8rem;
+             }
+             .testimonials h2{
+                font-size: 1.8rem;
+             }
+        }
+
+        /* New Styles for Renting Section */
+        .rent-section {
+            padding: 5rem 5%;
+            text-align: center;
+            background-color: #f0f4f8; /* Light background for the section */
+        }
+
+        .rent-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: #2c3e50;
+        }
+
+        .rent-steps {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+            
+        }
+
+        .rent-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            width: 280px;
+            padding: 2rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+        }
+
+        .rent-step:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .rent-step i {
+            font-size: 3.5rem;
+            color: #ff6b6b;
+            border: 2px solid #ff6b6b;
+            border-radius: 50%;
+            padding: 1rem;
+            animation: float 3s ease-in-out infinite;
+            background: rgba(255,107,107,0.1);
+        }
+
+        .rent-step h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+        }
+
+        .rent-step p {
+            color: #555;
+            text-align: center;
+        }
+
+        .contact-owner {
+            margin-top: 3rem;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #ff4757);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            box-shadow: 0 8px 25px rgba(255,107,107,0.3);
+        }
+
+        .contact-owner:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px rgba(255,107,107,0.4);
+        }
+
+        /* Style for suggestions */
+        #location-suggestions {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            z-index: 1000;
+            padding: 0.5rem 0;
+            display: none;
+            max-height: 200px;
+            overflow-y: auto;
+            width: 280px;
+        }
+
+        #location-suggestions li {
+            padding: 0.75rem 1.5rem;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            font-size: 1rem;
+        }
+
+        #location-suggestions li:hover {
+            background-color: #f0f0f0;
+            color: #ff6b6b;
+        }
+        .search-form input{
+            position: relative;
+        }
+
+        .btn-login {
+            background: #ff6b6b;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-login:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Room<span>Lelo</span></div>
+        <nav>
+            <ul>
+                <li><a href="main.html"><span class="material-icons">home</span> Home</a></li>
+                <li><a href="rooms.html"><span class="material-icons">bed</span> Rooms</a></li>
+                <li><a href="about.html"><span class="material-icons">info</span> About</a></li>
+                <li><a href="contact.html"><span class="material-icons">phone</span> Contact</a></li>
+                 <li><a href="rent.html"><span class="material-icons">card_travel</span> Rent Services</a></li>
+                <li><a href="login.html" class="btn-login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Find Your Perfect Student Room</h1>
+                <form class="search-form">
+                    <input type="text" id="location-input" placeholder="Location">
+                    <ul id="location-suggestions">
+                    </ul>
+                    <select>
+                        <option>Price Range</option>
+                        <option> - ₹500</option>
+                        <option>₹500 - ₹1000</option>
+                        <option>₹1000+</option>
+                    </select>
+                    <select>
+                        <option>Room Type</option>
+                        <option>Single</option>
+                        <option>Shared</option>
+                        <option>Apartment</option>
+                    </select>
+                    <button type="submit"><span class="material-icons">search</span> Search</button>
+                </form>
+            </div>
+        </section>
+        <section class="featured-rooms">
+            <h2>Featured Rooms</h2>
+            <div class="room-grid" id="featuredRooms">
+                <!-- Rooms will be loaded here dynamically -->
+            </div>
+        </section>
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial-grid">
+                <blockquote>
+                    <p>"Found the perfect room in minutes! The website is very easy to use and the information was accurate."</p>
+                    <cite>— Jane D.</cite>
+                </blockquote>
+                <blockquote>
+                    <p>"The RoomAI Score helped me choose wisely. I was able to find a room that matched my preferences and budget."</p>
+                    <cite>— Mark S.</cite>
+                </blockquote>
+                 <blockquote>
+                    <p>"I highly recommend RoomLelo to any student looking for accommodation. The service is excellent and the staff are very helpful."</p>
+                    <cite>— Sarah L.</cite>
+                </blockquote>
+            </div>
+        </section>
+
+        <section class="rent-section">
+            <h2>Looking to Rent Out Your Room?</h2>
+            <p>List your room on RoomLelo and find the perfect tenant!</p>
+            <div class="rent-steps">
+                <div class="rent-step">
+                    <i class="material-icons">search</i>
+                    <h3>1. Create a Listing</h3>
+                    <p>Provide details about your room, amenities, and location.</p>
+                </div>
+                <div class="rent-step">
+                    <i class="material-icons">perm_identity</i>
+                    <h3>2. Connect with Students</h3>
+                    <p>Reach out to potential tenants and schedule viewings.</p>
+                </div>
+                <div class="rent-step">
+                    <i class="material-icons">home</i>
+                    <h3>3. Find Your Tenant</h3>
+                    <p>Finalize the agreement and welcome your new tenant.</p>
+                </div>
+            </div>
+            <button class="contact-owner">Contact Us to List Your Room</button>
+        </section>
+
+    </main>
+    <footer>
+        <p>&copy; 2023 Room Lelo. All rights reserved.</p>
+    </footer>
+
+     <script>
+        // API Configuration
+        const API_BASE_URL = 'http://localhost:3000/api';
+
+        // DOM Elements
+        const searchForm = document.querySelector('.search-form');
+        const locationInput = document.getElementById('location-input');
+        const locationSuggestions = document.getElementById('location-suggestions');
+        const roomGrid = document.querySelector('.room-grid');
+
+        // Cities for autocomplete
+        const cities = [
+            "Mumbai", "Delhi", "Bangalore", "Hyderabad", "Chennai", "Kolkata", "Pune", 
+            "Ahmedabad", "Jaipur", "Lucknow", "Kanpur", "Nagpur", "Indore", "Bhopal", 
+            "Visakhapatnam", "Patna", "Vadodara", "Ghaziabad", "Ludhiana", "Agra",
+            "Nashik", "Faridabad", "Meerut", "Rajkot", "Varanasi"
+        ];
+
+        // Fetch and display rooms
+        async function fetchRooms() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/rooms`);
+                const rooms = await response.json();
+                displayRooms(rooms);
+            } catch (error) {
+                console.error('Error fetching rooms:', error);
+            }
+        }
+
+        // Display rooms in the grid
+        function displayRooms(rooms) {
+            roomGrid.innerHTML = '';
+            rooms.forEach(room => {
+                const roomCard = document.createElement('article');
+                roomCard.className = 'room-card';
+                roomCard.innerHTML = `
+                    <img src="${room.images[0] || 'default-room.jpg'}" alt="${room.title}">
+                    <div class="room-info">
+                        <h3>${room.title}</h3>
+                        <p class="price">₹${room.price}/month</p>
+                        <p class="description">${room.description}</p>
+                        <div class="room-ai-score high">${room._id.slice(-3)}</div>
+                        <a href="#" class="btn" onclick="viewRoomDetails('${room._id}')">View Details</a>
+                    </div>
+                `;
+                roomGrid.appendChild(roomCard);
+            });
+        }
+
+        // Handle search form submission
+        searchForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const location = locationInput.value;
+            const priceRange = searchForm.querySelector('select').value;
+            const roomType = searchForm.querySelectorAll('select')[1].value;
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/rooms/search`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ location, priceRange, roomType })
+                });
+                const rooms = await response.json();
+                displayRooms(rooms);
+            } catch (error) {
+                console.error('Error searching rooms:', error);
+            }
+        });
+
+        // Location autocomplete
+        locationInput.addEventListener('input', () => {
+            const input = locationInput.value.toLowerCase();
+            const suggestions = cities.filter(city => 
+                city.toLowerCase().includes(input)
+            );
+
+            locationSuggestions.innerHTML = '';
+            suggestions.forEach(city => {
+                const li = document.createElement('li');
+                li.textContent = city;
+                li.addEventListener('click', () => {
+                    locationInput.value = city;
+                    locationSuggestions.style.display = 'none';
+                });
+                locationSuggestions.appendChild(li);
+            });
+
+            locationSuggestions.style.display = suggestions.length ? 'block' : 'none';
+        });
+
+        // Close suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!locationInput.contains(e.target) && !locationSuggestions.contains(e.target)) {
+                locationSuggestions.style.display = 'none';
+            }
+        });
+
+        // View room details
+        function viewRoomDetails(roomId) {
+            window.location.href = `room-details.html?id=${roomId}`;
+        }
+
+        // Initialize
+        fetchRooms();
+
+        // Animate elements when they come into view
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.room-card, .testimonial-grid > *');
+            
+            elements.forEach(el => {
+                const elTop = el.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if(elTop < windowHeight - 100) {
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        };
+
+        // Initialize animations
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.room-card, .testimonial-grid > *').forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.6s ease-out';
+            });
+
+            setTimeout(() => {
+                animateOnScroll();
+            }, 500);
+        });
+
+        window.addEventListener('scroll', animateOnScroll);
+
+        // Load featured rooms
+        async function loadFeaturedRooms() {
+            try {
+                const response = await fetch('/api/featured-rooms');
+                const rooms = await response.json();
+                
+                const roomGrid = document.getElementById('featuredRooms');
+                roomGrid.innerHTML = rooms.map(room => `
+                    <div class="room-card">
+                        <img src="${room.images[0] || '/placeholder.jpg'}" alt="${room.title}" class="room-image">
+                        <div class="room-details">
+                            <h3 class="room-title">${room.title}</h3>
+                            <p class="room-location">${room.location}</p>
+                            <p class="room-price">₹${room.price}/month</p>
+                            <div class="room-amenities">
+                                ${room.amenities.map(amenity => `
+                                    <span class="amenity-tag">${amenity}</span>
+                                `).join('')}
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Error loading featured rooms:', error);
+            }
+        }
+
+        // Load rooms when page loads
+        document.addEventListener('DOMContentLoaded', loadFeaturedRooms);
+    </script>
+</body>
+</html>
