@@ -6,7 +6,7 @@ A platform for students to find and rent rooms, and for owners to list their pro
 
 - User registration and authentication
 - Room listing and searching
-- Room details and booking
+- Room details and booking. 
 - User profiles (students and owners)
 - Image upload for rooms
 - Location-based search
