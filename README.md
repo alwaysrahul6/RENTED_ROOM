@@ -11,7 +11,7 @@ A platform for students to find and rent rooms, and for owners to list their pro
 - Image upload for rooms
 - Location-based search
 
-## Tech Stack
+## Tech Stack.  
 
 - Frontend: HTML, CSS, JavaScript
 - Backend: Node.js, Express
